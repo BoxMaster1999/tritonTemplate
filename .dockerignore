@@ -1,0 +1,6 @@
+__pycache__
+.vscode
+.idea
+.coverage
+.pytest_cache
+vdata

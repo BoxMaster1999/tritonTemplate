@@ -1,0 +1,35 @@
+services:
+  triton-server:
+    build:
+      context: .
+      dockerfile: ./triton_server/Dockerfile
+      target: dev
+    ulimits:
+      stack: 67108864
+      memlock: -1
+    # equivalent for -t
+    tty: true
+    # equivalent for -i
+    stdin_open: true
+    volumes:
+      # models weights
+      - ./models:/opt/tritonserver/models
+      # models repository
+      - ./model_repository:/opt/tritonserver/model_repository
+    ports:
+      # GRPC Service
+      - 8081:8001
+      # HTTP Service
+      - 8082:8002
+      # Metrics Service
+      - 8083:8003
+      # Jupyterlab
+      - 8010:8888
+  fastapi-client:
+      build:
+        context: ./http_client
+        dockerfile: Dockerfile
+        target: dev
+      ports:
+        # Swagger
+        - 8080:8080

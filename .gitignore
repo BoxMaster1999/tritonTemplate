@@ -1,0 +1,8 @@
+# idea artefacts
+.idea
+
+# models-repository
+/models
+
+# dev artefacts
+/venv
